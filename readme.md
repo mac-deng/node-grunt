@@ -9,4 +9,6 @@
 	grunt jupianyipic
 #### 压缩JS和CSS，会在目录生成site.js和site.css文件
 	grunt jupianyi
+#### 监听文件夹变化触发jupianyi命令
+	grunt watch
 
