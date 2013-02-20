@@ -11,25 +11,13 @@
 
 var smushit = require('node-smushit');
 
-var jupianyiJS = ['E:/app/tencentapp1/js/global.js',
-           'E:/app/tencentapp1/js/pager.js', 
-           'E:/app/tencentapp1/js/cheap.js', 
-           'E:/app/tencentapp1/js/dajiatao.js', 
-           'E:/app/tencentapp1/js/appimgload.js', 
-           'E:/app/tencentapp1/js/stat.js', 
-           'E:/app/tencentapp1/js/group.js', 
-           'E:/app/tencentapp1/js/lottery.js'
-           ];
-var jupianyiCSS = ['E:/app/tencentapp1/css/index.css',
-           'E:/app/tencentapp1/css/cheap.css',
-           'E:/app/tencentapp1/css/pager.css',
-           'E:/app/tencentapp1/css/dajiatao.css',
-           'E:/app/tencentapp1/css/lottery.css'
-           ];           
+var jupianyiJS = ["E:/app/tencentapp1/js/site.js","E:/app/tencentapp1/js-souce/*.js"];
+var jupianyiCSS = ["E:/app/tencentapp1/css/site.css","E:/app/tencentapp1/css-souce/*.css"]; 
+var jupianyiIMG  = 'E:/app/tencentapp1/img/';         
 
 module.exports = function(grunt) {
   // Project configuration.
-  grunt.initConfig({
+  var config = {
     jshint: {
       all: [
         'Gruntfile.js',
@@ -53,15 +41,8 @@ module.exports = function(grunt) {
       }
     },
     cssmin: {
-      compress: {
-        files: {
-          "dist/output.css": ["test/input.css", "test/input1.css"]
-        }
-      },
       jupianyi: {
-        files: {
-          "E:/app/tencentapp1/css/site.css": jupianyiCSS
-        }
+        files: {}
       }
     },
     imagemin: {                          // Task
@@ -70,36 +51,39 @@ module.exports = function(grunt) {
           optimizationLevel: 3
         },
         files: {                         // Dictionary of files
-          'dist/img/': 'test/img/*.png'
+          /*'dist/img/': 'test/img/*.png'*/
         }
       }
     },
     clean: ["dist/img/"],
     uglify: {
       jupianyi: {
-        files: {
-          'E:/app/tencentapp1/js/site.js': jupianyiJS
-        }
+        files: {}
       }
     },
     watch: {
       scripts: {
-        files: ["E:/app/tencentapp1/css-souce/*.css","E:/app/tencentapp1/js-souce/*.js"],
+        files: [jupianyiCSS[1],jupianyiJS[1]],
         tasks: ['jupianyi'],
         options: {
           interrupt: true
         }
       }
     }
-  });
+  }
+
+    config.uglify.jupianyi.files[jupianyiJS[0]] = jupianyiJS[1];
+    config.cssmin.jupianyi.files[jupianyiCSS[0]] = jupianyiCSS[1];
+
+
+    grunt.initConfig(config);
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib');
 
-
-    grunt.registerTask('imgmin',[], function(){
+    /*grunt.registerTask('imgmin',[], function(){
       grunt.task.run(["clean","imagemin"]);
-    });
+    });*/
 
     grunt.registerTask('jupianyi',["jshint"],function(a,b){
       grunt.task.run(["cssmin:jupianyi","uglify:jupianyi"]);
@@ -107,9 +91,8 @@ module.exports = function(grunt) {
   });
 
      grunt.registerTask('jupianyipic', ['jshint'],function(){//图片压缩
-
        var done = this.async();
-        smushit.smushit('E:/app/tencentapp1/img/', {recursive: true,onComplete: function(reports){//图片压缩
+        smushit.smushit(jupianyiIMG, {recursive: true,onComplete: function(reports){//图片压缩
           done();
         }});
     });
