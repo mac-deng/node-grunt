@@ -30,7 +30,9 @@
   },
   "dependencies": {
     "grunt-contrib":">=0.0.1",
-    "node-smushit":">=0.01"
+    "node-smushit":">=0.01",
+    "grunt-contrib-jshint":">=0.01",
+    "grunt":">=0.01"
   },
   "devDependencies": {
    "grunt-contrib-internal": "~0.4.2",

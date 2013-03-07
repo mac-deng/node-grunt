@@ -23,6 +23,12 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'lib/**/*.js',
         'bin/*',
+        "F:/fandongxi/site/js-source/tmpl.js",
+        "F:/fandongxi/site/js-source/jquery.ui.widget.js",
+        "F:/fandongxi/site/js-source/jquery.iframe-transport.js",
+        "F:/fandongxi/site/js-source/jquery.fileupload.js",
+        "F:/fandongxi/site/js-source/jquery.fileupload-ui.js",
+        "F:/fandongxi/site/js-source/main.js"
       ],
       options: {
         curly: true,
@@ -59,6 +65,16 @@ module.exports = function(grunt) {
     uglify: {
       jupianyi: {
         files: {}
+      },
+      html5upload:{
+        files:{"F:/fandongxi/site/js/modules/html5upload.js":
+                ["F:/fandongxi/site/js-source/tmpl.js",
+                "F:/fandongxi/site/js-source/jquery.ui.widget.js",
+                "F:/fandongxi/site/js-source/jquery.iframe-transport.js",
+                "F:/fandongxi/site/js-source/jquery.fileupload.js",
+                "F:/fandongxi/site/js-source/jquery.fileupload-ui.js",
+                "F:/fandongxi/site/js-source/main.js"
+                ]}
       }
     },
     watch: {
@@ -87,6 +103,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('jupianyi',["jshint"],function(a,b){
       grunt.task.run(["cssmin:jupianyi","uglify:jupianyi"]);
+    
+  });
+
+    grunt.registerTask('html5upload',["jshint "],function(a,b){
+      grunt.task.run(["uglify:html5upload"]);
     
   });
 
